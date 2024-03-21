@@ -1,0 +1,183 @@
+#include <cstdlib>
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+int x = 0;
+int y = 0;
+int i = 0;
+int w = 0;
+int j = 0;
+int deposit = 0;
+int saque = 0;
+string cadastro[100][5];
+string nome, cpf, endereco, telefone;
+void criarCliente() {
+  cout << "Digite o nome do cliente: ";
+  cin >> nome;
+  cadastro[i][j] = nome;
+  j= j + 1;
+  cout << "Digite o cpf do cliente: ";
+  cin >> cpf;
+  cadastro[i][j] = cpf;
+  j= j + 1;
+  cout << "Digite o endereço do cliente: ";
+  cin >> endereco;
+  cadastro[i][j] = endereco;
+  j= j + 1;
+  cout << "Digite o telefone do cliente: ";
+  cin >> telefone;
+  cadastro[i][j] = telefone;
+  i= i + 1;
+  j=0;
+}
+void consultarusuario() {
+  cout << "Digite seu cpf:" << endl;
+  cin >> cpf;
+  for (int w = 0; w < i; w++) {
+    if (cadastro[w][1] == cpf){
+      cout << "Nome: " << cadastro[w][0] << endl;
+      cout << "Cpf: " << cadastro[w][1] << endl;
+      cout << "Endereço: " << cadastro[w][2] << endl;
+      cout << "Telefone: " << cadastro[w][3] << endl;
+      }
+  }
+}
+void apagarusuario(){
+  cout << "Digite seu cpf:" << endl;
+  cin >> cpf;
+  for (int w = 0; w < i; w++) {
+    if (cadastro[w][1] == cpf){
+      cadastro[w][0] = "";
+      cadastro[w][1] = "";
+      cadastro[w][2] = "";
+      cadastro[w][3] = "";
+      cout << "usuario apagado" << endl;
+    }
+    else{
+      cout << "usuario nao existe" << endl;
+    }
+  }
+}
+void editarusuario() {
+  cout << "Digite seu cpf:" << endl;
+  cin >> cpf;
+  for (int w = 0; w < i; w++) {
+    if (cadastro[w][1] == cpf){
+      cout << "Digite o que quer editar:"<<endl;
+      cout << "0-nome"<<endl;
+      cout << "1-cpf"<<endl;
+      cout << "2-endereco"<<endl;
+      cout << "3-telefone"<<endl;
+      cin >> y;
+        if (y ==0){
+          cout << "Digite o novo nome:";
+          cin >> nome;
+          cadastro[w][y] = nome;
+        }
+        if (y ==1){
+          cout << "Digite o novo Cpf:";
+          cin >> cpf;
+          cadastro[w][y] = cpf;
+        }
+        if (y ==2){
+          cout << "Digite o novo Endereço:";
+          cin >> endereco;
+          cadastro[w][y] = endereco;
+        }
+        if (y ==3){
+          cout << "Digite o novo Telefone:";
+          cin >> telefone;
+          cadastro[w][y] = telefone;
+        }
+        else{
+          cout << "usuario nao existe" << endl;
+        }
+      
+    }
+  }
+}
+void deposito() {
+  cout << "Digite seu cpf:" << endl;
+  cin >> cpf;
+  for (int w = 0; w < i; w++) {
+    if (cadastro[w][1] == cpf){
+      cout << "Digite o valor do deposito:";
+      cin >> deposit;
+      cadastro[w][4] = deposit;
+    }
+    else{
+      cout << "usuario nao existe" << endl;
+    }
+  }
+}
+void sacar() {
+  cout << "Digite seu cpf:" << endl;
+  cin >> cpf;
+  for (int w = 0; w < i; w++) {
+    if (cadastro[w][1] == cpf){
+     cout << "Digite o valor do saque:";
+    cin >> saque;
+      if (saque > stoi(cadastro[w][4])){
+        cout << "saldo insuficiente";
+      }
+      if (saque <= stoi(cadastro[w][4])){
+        cadastro[w][4] = to_string(stoi(cadastro[w][4]) - saque);
+        cout << "saldo atual: " << cadastro[w][4];
+      }
+    }
+    else{
+      cout << "usuario nao existe" << endl;
+    }
+  }
+}
+//  remorver a infomaçoes do cliente
+//  editar informações usuario
+// depositar
+// sacar
+// mostrar saldo -- marcio
+// fim do programa
+void menu() {
+  cout << "Bem vindo ao banco" << endl;
+  cout << "Escolha uma opção:" << endl;
+  cout << "1 - Criar conta" << endl;
+  cout << "2 - Consultar conta" << endl;
+  cout << "3 - Apagar conta" << endl;
+  cout << "4 - Editar informacoes conta" << endl;
+  cout << "5 - Depositar" << endl;
+  cout << "6 - Sacar" << endl;
+  cout << "5 - Mostrar saldo" << endl;
+  cout << "7 - encerra" << endl;
+}
+
+  int main(){
+    int x;  
+  while (true) {
+    menu();
+    cin >> x;
+    switch (x) {
+        case 1:
+            criarCliente();
+            break;
+        case 2:
+            consultarusuario();
+            break;
+        case 3:
+            apagarusuario();
+            break;
+        case 4:
+            editarusuario();
+            break;
+        case 5:
+            deposito();
+            break;
+        case 6:
+            sacar();
+            break;
+        case 7:
+            return 0;
+        default:
+            cout << "Opção inválida!" << endl;
+    }
+  }
+}
